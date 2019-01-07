@@ -23,12 +23,13 @@ def get(r):  # 此方法从云端尝试下载图片所有部分，可以写为�
     for a in r:
         if a.index[0] > x: x = a.index[0]
         if a.index[1] > y: y = a.index[1]
-    ba = bar((x, y))
+    ba = bar(x, y)
     ba.show()
     while True:
         for mission in r:
             if mission.statue == -1:
-                pass  # 处理错误
+                while mission.proceed() == 0:  # 提交不成功，反复提交直到成功
+                    pass
                 continue
             if mission.statue == 0 and mission.getdown() is not None:
                 b[mission.index] = mission.result
